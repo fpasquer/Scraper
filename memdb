@@ -1,0 +1,16 @@
+CREATE DATABASE IF NOT EXISTS businesswire;
+
+DROP TABLE IF EXISTS `data`;
+CREATE TABLE `data` (
+  `id` int(12) unsigned NOT NULL AUTO_INCREMENT,
+  `title` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `extracte_date` double NOT NULL,
+  `post_date` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `content` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `company_name` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `company_ticket` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `hash_tag` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `cash_tag` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `url` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;

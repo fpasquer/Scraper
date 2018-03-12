@@ -1,0 +1,27 @@
+# my environnemt to dev python3
+version: "3"
+services:
+    myenv:
+        build:
+            context: .
+            dockerfile: python3/Dockerfile
+        volumes:
+            - /Users/florianpasquereau/Desktop/shared/:/var/shared
+        links:
+            - db:db
+
+    db:
+        image: mysql
+        environment:
+            - MYSQL_ROOT_PASSWORD=root
+        ports:
+            - "3306:3306"
+        links:
+            - apache:apache
+
+    apache:
+        image: tutum/apache-php
+        ports:
+            - "80:80"
+        volumes:
+            - /Users/florianpasquereau/Desktop/shared/:/app
