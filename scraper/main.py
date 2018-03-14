@@ -12,7 +12,7 @@ class Scraper:
     calss to manage scrapping
     """
 
-    def __def__(self):
+    def __init__(self):
         self.data = Data()
         self.mysql = Mysql()
 
@@ -22,6 +22,7 @@ class Scraper:
             """
         browser = webdriver.Firefox()
         browser.get(link)
+        time.sleep(2)
         try:
             self.data.set_title(browser.find_element_by_css_selector("h1.epi-fontLg"))
         except NoSuchElementException:
@@ -52,6 +53,7 @@ class Scraper:
             self.data.set_content(browser.find_element_by_css_selector("div.bw-release-story"))
         except NoSuchElementException:
             print("\tcontent missing")
+        browser.close()
         return self.data
 
     def save_data_object(self, link):
@@ -68,9 +70,17 @@ class Scraper:
         """
         browser = webdriver.Firefox()
         browser.get(link)
+        time.sleep(2)
         list_links = browser.find_elements_by_css_selector("div#headlines ul.bwNewsList li a.bwTitleLink")
         for list_link in list_links:
             self.save_data_object(list_link.get_attribute("href"))
+        next_link = browser.find_element_by_css_selector("div#paging div div.pagingNext a")
+        if next_link is not None:
+            next_link = next_link.get_attribute("href")
+        browser.close()
+        if next_link is not None:
+            self.get_links_pages(next_link)
 
-scraper = Scraper()
-scraper.get_links_pages("https://www.businesswire.com/portal/site/home/news/multimedia/")
+if __name__ == "__main__":
+    scraper = Scraper()
+    scraper.get_links_pages("https://www.businesswire.com/portal/site/home/news/multimedia/")

@@ -56,6 +56,10 @@ RUN git clone "https://github.com/niklasb/webkit-server.git" &&\
 ADD start_script.sh /tmp/start_script.sh
 RUN chmod +x /tmp/start_script.sh
 
+#mysql
+RUN apk add --no-cache mariadb-dev
+RUN pip install mysqlclient
+
 # prepare le shell
 RUN mkdir /var/shared
 WORKDIR "/var/shared"

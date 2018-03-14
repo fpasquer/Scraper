@@ -1,8 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-import MySQLdb as mdb
-import sys
+import MySQLdb
 
 class Mysql:
     """
@@ -10,18 +9,14 @@ class Mysql:
     db_table : name of the table vill be get data object
     """
 
-    def __def__(self, server = 'db', user='root', pwd='root'):
-        self.table = "Scraper_businesswire"
-        try:
-            self.db_sql = mdb.connect(server, user, pwd)
-        except mdb.Error:
-            print("Error Mysql")
-            sys.exit(1)
+    def __init__(self, server = 'db', user='root', pwd='root'):
+        self.db = MySQLdb.connect(server, user, pwd)
+        self.cursor = self.db.cursor()
         sql = """CREATE DATABASE IF NOT EXISTS businesswire;"""
-        self.db_sql.query(sql)
+        self.cursor.execute(sql)
 
     def add_data(self, data):
-        sql = """
-CREATE DATABASE IF NOT EXISTS businesswire;
-        """
+        print("Data => " + data.url)
 
+    def __del__(self):
+        self.db.close()
