@@ -19,4 +19,4 @@ class Mysql:
         print("Data => " + data.url)
 
     def __del__(self):
-        self.db.close()
+        self.close()
